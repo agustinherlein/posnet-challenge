@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateCardRequest;
 use App\Services\CardService;
 use Illuminate\Http\Request;
 
@@ -13,6 +14,7 @@ class CardController extends BaseApiController
     {
         $this->cardService = $cardService;
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -24,10 +26,10 @@ class CardController extends BaseApiController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateCardRequest $request)
     {
         try {
-            $data = $request->all();
+            $data = $request->validated();
             $card = $this->cardService->create($data);
             return $this->sendResponse($card, "Card saved successfully");
         } catch (\Throwable $th) {

@@ -21,6 +21,9 @@ class Posnet
             throw new Exception("The limit of the card is not enough to make this payment");
         }
 
-        return $final_amount;
+        return [
+            'total' => $final_amount,
+            'monthly_payment' => $final_amount / $payments
+        ];
     }
 }
